@@ -1,0 +1,80 @@
+import os
+import inspect
+import contextlib
+from datetime import datetime
+
+os.chdir('/Users/geeth/OneDrive/Desktop/Projects/Physics calculator/The code(object)')
+
+# for dirpath, dirnames, filenames in os.walk('/Users/geeth/OneDrive/Desktop'):
+#     print(f'Current path: {dirpath}')
+#     print(f'directories: {dirnames}')
+#     print(f'Files: {filenames}')
+#     print()
+# print(os.listdir())
+# print(inspect.getsource(os.walk))
+# def test():
+#     test1 = (1, 2, 3)
+#     test2 = ('one', 'two', 'three')
+#     yield test1, test2
+
+# for test1, test2 in test():
+#     print(f'test1: {test1}')
+#     print(f'test2: {test2}') 
+
+# filepath = os.path.join(os.environ.get('USERPROFILE'), 'test.txt')
+# print(filepath) output: the path of the home directory
+# print(os.path.basename('/tmp/test.txt'))  output: test.txt
+# print(os.path.dirname('/tmp/test.txt'))  output: /tmp
+# print(os.path.splitext('/tmp/test.txt')) output: ('/tmp/test', '.txt')
+# other functions like os.path.__ (__= isdir, isfile, join, )
+
+import os
+
+print(f'''
+Operating system: {os.name}
+Information of the current os: {os.stat('/Users/geeth/OneDrive/Desktop/Projects/Physics calculator/The code(object)')}
+Current Working Directory: {os.getcwd()}
+List of files and directories in the current directory:
+{os.listdir()}
+
+Test if your file exixts or not:
+''')    
+try:
+    filename = input('Enter a file name: ')
+    with open(filename, 'r') as f:
+        f.read()
+        print('This file exists.')
+except IOError:
+    print(f'Not accessed or problem in reading: {filename}')
+
+# sys.stderr.write('test\n')
+# sys.stderr.flush()
+# sys.stdout.write('test2\n')
+
+# print(sys.argv)
+# print(f'This is the name of the program: {sys.argv[0]}')
+# print(f'Arguments lists: {str(sys.argv)}')
+
+# print(sys.version_info)
+
+# for i in range(len(sys.argv)):
+#     if i == 0:
+#         print(f'Function name: {sys.argv[0]}')
+#     else:
+#         print('%d Argument: %s' % (i,sys.argv[i]))
+
+# while True:
+#     print('yet another iteration ....')
+
+#     try:
+#         number = int(input('Enter a number: '))
+#     except EOFError:
+#         print('\nciao')
+
+#     else:
+#         number = int(number)
+#         if number == 0:
+#             print(f'{sys.stderr} 0 has no inverse.')
+#         else:
+#             print('inverse of %d is %f' % (number, 1.0/number))
+
