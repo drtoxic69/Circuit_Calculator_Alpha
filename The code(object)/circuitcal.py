@@ -83,8 +83,17 @@ class calculator:
                 elif num_resistor > 1:
                     print(f'R(eq) of the circuit: {sum(calculator.numOfResistors.multiple_value)}')
 
+                if self.voltage.lower() == 'not given':
+                    if num_resistor == 1: 
+                        self.voltage = self.current*calculator.numOfResistors.single_value
+                        print(f'The V(b): {self.voltage} V')
+
+                    elif num_resistor > 1:
+                        self.voltage = self.current*sum(calculator.numOfResistors.multiple_value)
+                        print(f'The V(b): {self.voltage} V')
+                    print(f'V(r1) + V(r2) + ... = {self.voltage} V')
+
                 
-        
     # The calculations for a parallel circuit
     # The outputs of the parallel circuit
     def parallelCalculation(self):
@@ -139,7 +148,7 @@ V = IR [By Ohm's law]
                     elif num_resistor == 1:
                         print(f'''
 ====================================================================================
-[draw the circuit yourself]
+[*Note: draw the circuit yourself]
 R(eq) = R1 + R2 + ... + Rn
       = {calculator.numOfResistors.single_value} ohms
 
@@ -154,6 +163,47 @@ V = IR [By Ohm's law]
             
                 else:
                     print('Ok then, have a nice day!')
+
+            elif self.ask_which_one.lower() == 'v':
+                if step_by_step.lower() == 'y':
+                    if num_resistor > 1:
+                        print(f'''
+====================================================================================
+[*Note: PLease draw the circuit yourself]
+R(eq) = R(1) + R(2) + ... + R(n)
+      = {sum(calculator.numOfResistors.multiple_value)} ohms
+
+V(b) = I(ckt) x R(eq) [by ohms law]
+     = {self.current} x {sum(calculator.numOfResistors.multiple_value)}
+     = {self.current*sum(calculator.numOfResistors.multiple_value)} V
+
+I(ckt) = I(r1) = I(r2) = ... = {self.current} A
+                        ''')
+                        for value_resistor in calculator.numOfResistors.multiple_value:
+                            print(f'''
+V = IR [By Ohm's law]
+  = {self.current} x {value_resistor}
+  = {value_resistor*self.current} V
+                        ''')
+                    
+                    elif num_resistor == 1:
+                        print(f'''
+====================================================================================
+[*Note: draw the circuit yourself]
+R(eq) = R1 + R2 + ... + Rn
+      = {calculator.numOfResistors.single_value} ohms
+
+V(b) = I(ckt) x R(eq) [by ohms law]
+     = {self.current} x {calculator.numOfResistors.single_value}
+     = {self.current*calculator.numOfResistors.single_value} V
+
+I(ckt) = I(r1) = I(r2) = ... = {self.current} A
+
+V = IR [By Ohm's law]
+  = {self.current} x {calculator.numOfResistors.single_value}
+  = {self.current*calculator.numOfResistors.single_value} V
+                        ''')
+
 
         # Parallel step-by-step
         elif self.connected.lower() == 'p':
