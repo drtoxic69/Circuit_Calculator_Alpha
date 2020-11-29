@@ -203,6 +203,9 @@ V = IR [By Ohm's law]
   = {self.current} x {calculator.numOfResistors.single_value}
   = {self.current*calculator.numOfResistors.single_value} V
                         ''')
+                
+                else:
+                    print('Ok, then have a nice day.')
 
 
         # Parallel step-by-step
