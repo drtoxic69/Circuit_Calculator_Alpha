@@ -123,7 +123,7 @@ class calculator:
 
                     for current_resistor in calculator.numOfResistors.multiple_value:
                             print(f'The current of the resistor: {self.voltage/current_resistor} A')
-
+# continue here --->
                 
     # Step by step 
     def stepByStep(self):
