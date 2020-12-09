@@ -1,7 +1,10 @@
+import sys
+
 class calculator:    
     # The instruction 
     print('When you have to enter multiple values you have to enter with a space.')
     print('For example you have to enter 4 and 2 then you should enter like this: 4 2')
+    print()
 
     # The values
     def __init__(self):
@@ -17,8 +20,8 @@ class calculator:
             self.voltage = 'not given'
             
         else:
-            exit('You had to type c or v!')
-
+            sys.exit('You had to type c or v!')
+        
     
     # The number of resistors in a circuit of series and parallel
     def numOfResistors(self):
@@ -28,7 +31,7 @@ class calculator:
             try:
                 num_resistor = int(input('Enter the no. resistors in the circuit: '))
             except ValueError:
-                exit('Invalid Input! You had to type a whole number!')
+                sys.exit('Invalid Input! You had to type a whole number!')
                 
             if num_resistor == 1:
                 calculator.numOfResistors.single_value = int(input('Enter the value of the resistor: '))
@@ -39,7 +42,7 @@ class calculator:
                 return calculator.numOfResistors.multiple_value
 
             elif num_resistor == 0:
-                exit('To run this command you need atleast one resistor: ')
+                sys.exit('To run this command you need atleast one resistor: ')
 
             
     # The calculation for a series circuit
@@ -47,7 +50,7 @@ class calculator:
     def seriesCalculation(self):
         if self.connected.lower() == 's':
 
-            print('_____________________________________________________________________________________')
+            print({'_' * 84})
             print('')
             
             if self.ask_which_one.lower() == 'c':
@@ -78,10 +81,10 @@ class calculator:
             elif self.ask_which_one.lower() == 'v':
                 
                 if num_resistor == 1:
-                    print(f'R(eq) of the circuit: {calculator.numOfResistors.single_value}')
+                    print(f'R(eq) of the circuit: {calculator.numOfResistors.single_value} ohms')
 
                 elif num_resistor > 1:
-                    print(f'R(eq) of the circuit: {sum(calculator.numOfResistors.multiple_value)}')
+                    print(f'R(eq) of the circuit: {sum(calculator.numOfResistors.multiple_value)} ohms')
 
                 if self.voltage.lower() == 'not given':
                     if num_resistor == 1: 
@@ -96,24 +99,27 @@ class calculator:
                 
     # The calculations for a parallel circuit
     # The outputs of the parallel circuit
-    def parallelCalculation(self):
+    def parallelCalculation(self):    
         if self.connected.lower() == 'p':
+            print('_' * 84)
+            print()
+
             if num_resistor == 1:
-                exit('Invalid input! if there is one resistor in a circuit then it is a series circuit!')
+                sys.exit('Invalid input! if there is one resistor in a circuit then it is a series circuit!')
             
             elif num_resistor > 1:
                 global Req
                 Req = 0
                 for req in calculator.numOfResistors.multiple_value:
                     Req += 1/req
-                print(f'The R(eq): {1/Req}')
+                print(f'The R(eq): {1/Req} ohms')
 
             # The calculation of current and voltage in parallel
             if self.ask_which_one.lower() == 'c':
                 if self.current.lower() == 'not given':
                     self.current = self.voltage/(1/Req)
-                    print(f'The I(ckt): {self.current}')
-                    print(f'V(b) = V(1) = V(2) = ... = {self.voltage}')
+                    print(f'The I(ckt): {self.current} A')
+                    print(f'V(b) = V(1) = V(2) = ... = {self.voltage} V')
 
                     for current_resistor in calculator.numOfResistors.multiple_value:
                             print(f'The current of the resistor: {self.voltage/current_resistor} A')
@@ -127,7 +133,8 @@ class calculator:
                 if step_by_step.lower() == 'y':
                     if num_resistor > 1:
                         print(f'''
-====================================================================================
+{'='*84}
+
 [*note: please draw the circuit yourself]
 R(eq) = R(1) + R(2) + ... + R(n)
       = {sum(calculator.numOfResistors.multiple_value)} ohms
@@ -147,7 +154,8 @@ V = IR [By Ohm's law]
 
                     elif num_resistor == 1:
                         print(f'''
-====================================================================================
+{'='*84}
+
 [*Note: draw the circuit yourself]
 R(eq) = R1 + R2 + ... + Rn
       = {calculator.numOfResistors.single_value} ohms
@@ -168,7 +176,8 @@ V = IR [By Ohm's law]
                 if step_by_step.lower() == 'y':
                     if num_resistor > 1:
                         print(f'''
-====================================================================================
+{'='*84}
+
 [*Note: PLease draw the circuit yourself]
 R(eq) = R(1) + R(2) + ... + R(n)
       = {sum(calculator.numOfResistors.multiple_value)} ohms
@@ -188,7 +197,8 @@ V = IR [By Ohm's law]
                     
                     elif num_resistor == 1:
                         print(f'''
-====================================================================================
+{'='*84}
+
 [*Note: draw the circuit yourself]
 R(eq) = R1 + R2 + ... + Rn
       = {calculator.numOfResistors.single_value} ohms
@@ -210,31 +220,58 @@ V = IR [By Ohm's law]
 
         # Parallel step-by-step
         elif self.connected.lower() == 'p':
-            if step_by_step.lower() == 'y':
-                print(f'''
-====================================================================================
-[PLease draw the circuit yourself]
-1/R(eq) = 1/R(1) + 1/R(2) + ... + 1/R(n)
-        = {1/Req} ohms
+            if self.ask_which_one.lower() == 'c':
+                if step_by_step.lower() == 'y':
+                    print(f'''
+{'='*84}
 
-I(ckt) = V/R(eq)
+[*Note : PLease draw the circuit yourself]
+1/R(eq) = 1/R(1) + 1/R(2) + ... + 1/R(n)
+  R(eq) = {1/Req} ohms
+
+I(ckt) = V/R(eq) [by Ohms law]
+       = {self.voltage} / {1/Req}
        = {self.current} A
 
 V(b) = V(r1) = V(r2) = ... = {self.voltage} V
                 ''')
-                for value_resistor in calculator.numOfResistors.multiple_value:
-                        print(f'''
+                    for value_resistor in calculator.numOfResistors.multiple_value:
+                            print(f'''
 I = V/R [By Ohm's law]
   = {self.voltage} / {value_resistor}
   = {self.voltage/value_resistor} A
                         ''')
+                    sys.exit('Thank you and have a nice day :)')
             
-            elif step_by_step.lower() == 'n':
-                exit('Ok then, have a nice day!')
+                elif step_by_step.lower() == 'n':
+                    sys.exit('Ok then, have a nice day!')
 
-            else:
-                exit('Invalid Input! you had to input y or n')
-                
+            elif self.ask_which_one.lower() == 'v':
+                if step_by_step.lower() == 'y':
+                    print(f'''
+{'='*84}
+
+[*Note: PLease draw the circuit yourself]
+1/R(eq) = 1/R(1) + 1/R(2) + ... + 1/R(n)
+  R(eq) = {1/Req} ohms
+
+V(b) = I(ckt) x R(eq) [by Ohms law]
+     = {self.current} x {1/Req}
+     = {self.voltage} V
+
+V(b) = V(r1) = V(r2) = ... = {self.voltage} V
+                    ''')
+                    for value_resistor in calculator.numOfResistors.multiple_value:
+                            print(f'''
+I = V/R [By Ohm's law]
+  = {self.voltage} / {value_resistor}
+  = {self.voltage/value_resistor} A
+                        ''')
+                    sys.exit('Thank you and have a nice day :)')
+
+                else:
+                    sys.exit('Invalid Input! you had to input y or n')
+                    
 
 
 c = calculator()
