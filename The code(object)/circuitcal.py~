@@ -296,12 +296,12 @@ I = V/R [By Ohm's law]
             print()
             values_of_resistors = {}
             for sets in range(sets_of_resistors):
-                values_of_resistors[f'top{sets+1}'] = int(input(f'Enter the no. of resistor(s) in top of set {sets+1}: ')) 
-                values_of_resistors[f'bottom{sets+1}'] = int(input(f'Enter the no. of resistor(s) in bottom in set {sets+1}: '))
+                values_of_resistors[f'top{sets+1}'] = list(map(float, input(f'Enter the value of resistor(s) in top of set {    sets+1}: ').split()))
+                values_of_resistors[f'top{sets+1}'] = sum(values_of_resistors[f'top{sets+1}']
+                values_of_resistors[f'bottom{sets+1}'] = list(map(float, input(f'Enter the value of resistor(s) in bottom in set {sets+1}: ').split()))
                 print()
-                
-            print(values_of_resistors)
-                
+                # figure out a way to add the series values
+             
         
 
 c = calculator()
