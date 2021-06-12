@@ -3,7 +3,8 @@ name: Black Formatter
 on:
   push:
     branches:
-    - *
+    - main
+    - *-patch-*
 
 jobs:
   apply-black:
