@@ -1,10 +1,6 @@
 name: Black Formatter
 
-on:
-  push:
-    branches:
-    - main
-    - *-patch-*
+on: [push]
 
 jobs:
   apply-black:
